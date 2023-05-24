@@ -10,14 +10,15 @@ public class GroundSensor : MonoBehaviour
     SFXManager sfxManager;
     SoundManager soundManager;
     GameManager gameManager;
+    Animator anim;
 
     void Awake()
     {
         controller = GetComponentInParent<PlayerController>();
-        
+        anim = GetComponentInParent <Animator>();
         sfxManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        gameManager = GameObject.Find("GameManger").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -25,6 +26,7 @@ public class GroundSensor : MonoBehaviour
         if(other.gameObject.layer == 3)
         {
             isGrounded = true;
+            anim.SetBool("isJumping", false);
         }
         else if(other.gameObject.layer == 6)
         {
